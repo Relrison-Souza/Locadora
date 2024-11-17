@@ -23,9 +23,21 @@ namespace Locadora.Controllers
         }
 
         // GET: EmprestimoController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Filmes = await _context.Filmes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (Filmes == null)
+            {
+                return NotFound();
+            }
+
+            return View(Filmes);
         }
 
         // GET: EmprestimoController/Create
@@ -49,9 +61,18 @@ namespace Locadora.Controllers
         }
 
         // GET: EmprestimoController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var Filmes = await _context.Filmes.SingleOrDefaultAsync(i => i.Id == id);
+            if (Filmes == null)
+            {
+                return NotFound();
+            }
+            return View(Filmes);
         }
 
         // POST: EmprestimoController/Edit/5
@@ -87,13 +108,28 @@ namespace Locadora.Controllers
             return View(Filmes);
         }
 
-        // GET: EmprestimoController/Delete/5
-        public ActionResult Delete(int id)
+        private bool FilmesExists(int id)
         {
-            return View();
+            throw new NotImplementedException();
         }
 
-        // POST: EmprestimoController/Delete/5
+        // GET: EmprestimoController/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Filmes = await _context.Filmes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (Filmes == null)
+            {
+                return NotFound();
+            }
+
+            return View(Filmes);
+        }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -107,9 +143,7 @@ namespace Locadora.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        private bool FilmesExists(int id)
-        {
-            return _context.Filmes.Any(e => e.Id == id);
-        }
+
+
     }
 }
