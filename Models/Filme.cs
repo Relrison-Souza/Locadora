@@ -1,4 +1,6 @@
-﻿namespace Locadora.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Locadora.Models
 {
     public class Filme
     {
@@ -11,6 +13,9 @@
         public decimal Preco { get; set; }
 
         public DateTime Emprestimo { get; set; } = DateTime.Now;
+
+        [ForeignKey("ProdId")]
+        public Produtora Produtora { get; set; }
 
     }
 

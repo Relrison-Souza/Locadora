@@ -9,5 +9,7 @@ namespace Locadora.Data
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<Produtora> Produtoras { get; set; }
+        public DbSet<Genero> Generos { get; set; }
     }
 }

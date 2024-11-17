@@ -4,6 +4,7 @@ using Locadora.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Locadora.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20241117201507_v13")]
+    partial class v13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,12 +47,12 @@ namespace Locadora.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProdId")
+                    b.Property<int>("ProdutoraProdId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdId");
+                    b.HasIndex("ProdutoraProdId");
 
                     b.ToTable("Filmes");
                 });
@@ -70,7 +73,6 @@ namespace Locadora.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("desc")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GenId");
@@ -105,7 +107,7 @@ namespace Locadora.Migrations
                 {
                     b.HasOne("Locadora.Models.Produtora", "Produtora")
                         .WithMany()
-                        .HasForeignKey("ProdId")
+                        .HasForeignKey("ProdutoraProdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ForeingKeyAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Filme\DeleteConfirmed.cshtml" />
   </ItemGroup>
 
